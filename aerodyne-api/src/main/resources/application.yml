@@ -1,0 +1,71 @@
+spring:
+  application:
+    name: aerodyne
+
+  datasource:
+    url: ${AERODYNE_DB_URL:jdbc:postgresql://localhost:5432/aerodyne}
+    username: ${AERODYNE_DB_USER:aerodyne}
+    password: ${AERODYNE_DB_PASSWORD:aerodyne}
+    hikari:
+      # A cycle import writes tens of thousands of rows in one transaction; a small pool with a
+      # generous timeout suits that better than a large one with a short leash.
+      maximum-pool-size: 10
+      connection-timeout: 30000
+
+  jpa:
+    # The schema belongs to Flyway. Hibernate validates that it got what it expected and never
+    # changes anything: a schema the ORM invented is a schema nobody has reviewed.
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          # Cycle imports are bulk inserts; batching them is the difference between a load that
+          # takes a minute and one that takes an hour.
+          batch_size: 500
+          order_inserts: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    # PostGIS has to exist before the first migration runs; the migration creates the extension,
+    # which needs the connecting role to be able to.
+    baseline-on-migrate: false
+
+server:
+  port: ${AERODYNE_PORT:8080}
+  error:
+    include-message: never
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
+springdoc:
+  api-docs:
+    path: /api/openapi
+  swagger-ui:
+    path: /api/docs
+
+logging:
+  level:
+    io.aerodyne: INFO
+
+---
+# Local development against a throwaway database.
+spring:
+  config:
+    activate:
+      on-profile: dev
+  jpa:
+    show-sql: true
+logging:
+  level:
+    io.aerodyne: DEBUG
