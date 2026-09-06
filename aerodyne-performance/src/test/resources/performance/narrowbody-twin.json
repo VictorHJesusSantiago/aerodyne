@@ -1,0 +1,96 @@
+{
+  "_comment": [
+    "The narrowbody twin from AircraftTypes, expressed as a data file.",
+    "The numbers are the same constructed, representative figures — the point of this file is",
+    "the format, so that an operator can put their own manual's tables in the same shape.",
+    "Each table is a grid of values: one row per weight, one column per altitude."
+  ],
+
+  "typeCode": "N738",
+  "name": "Narrowbody twin",
+  "engineCount": 2,
+  "etopsApprovalMinutes": 120,
+  "_provenance_note": "Left as MANUFACTURER so the round-trip test can compare against the",
+  "_provenance_note2": "built-in type field by field; a real sample would say REPRESENTATIVE.",
+
+  "weights": {
+    "operatingEmptyKg": 41500,
+    "maxZeroFuelKg": 62700,
+    "maxTakeoffKg": 79000,
+    "maxLandingKg": 66400,
+    "maxFuelKg": 20900
+  },
+
+  "cruise": {
+    "weightsKg": [55000, 79000],
+    "altitudesFt": [25000, 31000, 35000, 39000, 41000],
+    "mach": [
+      [0.780, 0.785, 0.785, 0.780, 0.775],
+      [0.780, 0.782, 0.780, 0.770, 0.760]
+    ],
+    "fuelFlowKgPerHour": [
+      [2900, 2600, 2400, 2280, 2260],
+      [3500, 3150, 2950, 2900, 3000]
+    ],
+    "isaFuelFactorPerDegreeC": 0.004,
+    "optimumAltitude": {
+      "weightsKg": [55000, 65000, 79000],
+      "altitudeFt": [39500, 37000, 33500]
+    }
+  },
+
+  "climb": {
+    "weightsKg": [55000, 79000],
+    "altitudesFt": [0, 10000, 20000, 30000, 35000, 39000, 41000],
+    "minutes": [
+      [0, 3.5, 7.5, 13.0, 17.0, 22.5, 27.0],
+      [0, 4.5, 10.0, 18.0, 24.0, 33.0, 41.0]
+    ],
+    "fuelKg": [
+      [0, 350, 700, 1150, 1450, 1800, 2100],
+      [0, 450, 950, 1650, 2150, 2800, 3400]
+    ],
+    "distanceNm": [
+      [0, 22, 52, 100, 137, 190, 235],
+      [0, 28, 70, 140, 195, 280, 355]
+    ]
+  },
+
+  "descent": {
+    "weightsKg": [50000, 66400],
+    "altitudesFt": [0, 10000, 20000, 30000, 35000, 39000, 41000],
+    "minutes": [
+      [0, 6.0, 11.5, 17.0, 20.5, 24.0, 26.0],
+      [0, 6.5, 12.5, 18.5, 22.0, 26.0, 28.0]
+    ],
+    "fuelKg": [
+      [0, 70, 130, 190, 230, 270, 295],
+      [0, 80, 150, 215, 260, 305, 335]
+    ],
+    "distanceNm": [
+      [0, 28, 60, 95, 118, 142, 158],
+      [0, 30, 65, 103, 128, 155, 172]
+    ]
+  },
+
+  "geometry": {
+    "macLengthMetres": 4.17,
+    "macLeadingEdgeArmMetres": 17.00,
+    "operatingEmptyArmMetres": 17.88
+  },
+
+  "cgEnvelope": [
+    { "weightKg": 41000, "cgPercentMac": 10.0 },
+    { "weightKg": 41000, "cgPercentMac": 34.0 },
+    { "weightKg": 62700, "cgPercentMac": 32.0 },
+    { "weightKg": 80000, "cgPercentMac": 28.0 },
+    { "weightKg": 80000, "cgPercentMac": 14.0 },
+    { "weightKg": 62700, "cgPercentMac": 9.0 }
+  ],
+
+  "engineOut": {
+    "diversionSpeedKt": 380,
+    "diversionFuelFlowKgPerHour": 3300,
+    "singleEngineCeilingFt": 22000
+  }
+}
