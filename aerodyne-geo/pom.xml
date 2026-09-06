@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.aerodyne</groupId>
+    <artifactId>aerodyne</artifactId>
+    <version>0.1.0</version>
+  </parent>
+
+  <artifactId>aerodyne-geo</artifactId>
+  <packaging>jar</packaging>
+
+  <name>Aerodyne :: Geo</name>
+  <description>
+    Navigational geodesy on the WGS-84 ellipsoid: Vincenty direct and inverse solutions,
+    great-circle course and intermediate points, cross-track and along-track distance,
+    ARINC/ICAO coordinate parsing and formatting, and aviation unit conversions.
+    No external geospatial library.
+  </description>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+  </dependencies>
+</project>
