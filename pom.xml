@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.aerodyne</groupId>
+  <artifactId>aerodyne</artifactId>
+  <version>0.1.0</version>
+  <packaging>pom</packaging>
+
+  <name>Aerodyne</name>
+  <description>
+    A flight planning and dispatch engine: WGS-84 geodesy, an ARINC 424 navigation database
+    parser, airway/waypoint route search, GRIB2 upper-wind decoding and interpolation, fuel and
+    time integration along the route, weight and balance, ETOPS/ETP computation, METAR/TAF and
+    NOTAM parsing for alternate selection, OFP generation and a CPDLC-style message codec.
+    Spring Boot on top, PostGIS underneath.
+  </description>
+
+  <modules>
+    <module>aerodyne-geo</module>
+    <module>aerodyne-navdata</module>
+    <module>aerodyne-weather</module>
+    <module>aerodyne-performance</module>
+    <module>aerodyne-routing</module>
+    <module>aerodyne-dispatch</module>
+    <module>aerodyne-api</module>
+  </modules>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.release>21</maven.compiler.release>
+
+    <spring-boot.version>3.3.4</spring-boot.version>
+    <junit.version>5.11.0</junit.version>
+    <mockito.version>5.13.0</mockito.version>
+    <assertj.version>3.26.3</assertj.version>
+    <flyway.version>10.17.3</flyway.version>
+    <postgresql.version>42.7.4</postgresql.version>
+    <hibernate-spatial.version>6.5.3.Final</hibernate-spatial.version>
+    <jts.version>1.19.0</jts.version>
+    <jackson.version>2.17.2</jackson.version>
+    <slf4j.version>2.0.16</slf4j.version>
+    <springdoc.version>2.6.0</springdoc.version>
+    <testcontainers.version>1.21.3</testcontainers.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!--
+        Declared before spring-boot-dependencies on purpose. Imported BOMs are resolved
+        first-wins, and a version property set here does not reach inside an imported BOM, so
+        the only way to move off Spring Boot's Testcontainers is to get in front of it. Needed
+        because the older release cannot negotiate an API version with Docker Engine 29.
+      -->
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>testcontainers-bom</artifactId>
+        <version>${testcontainers.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>io.aerodyne</groupId>
+        <artifactId>aerodyne-geo</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.aerodyne</groupId>
+        <artifactId>aerodyne-navdata</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.aerodyne</groupId>
+        <artifactId>aerodyne-weather</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.aerodyne</groupId>
+        <artifactId>aerodyne-performance</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.aerodyne</groupId>
+        <artifactId>aerodyne-routing</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.aerodyne</groupId>
+        <artifactId>aerodyne-dispatch</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${mockito.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-junit-jupiter</artifactId>
+        <version>${mockito.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>${assertj.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.locationtech.jts</groupId>
+        <artifactId>jts-core</artifactId>
+        <version>${jts.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate.orm</groupId>
+        <artifactId>hibernate-spatial</artifactId>
+        <version>${hibernate-spatial.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>${postgresql.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.flywaydb</groupId>
+        <artifactId>flyway-core</artifactId>
+        <version>${flyway.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.flywaydb</groupId>
+        <artifactId>flyway-database-postgresql</artifactId>
+        <version>${flyway.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${jackson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.datatype</groupId>
+        <artifactId>jackson-datatype-jsr310</artifactId>
+        <version>${jackson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        <version>${springdoc.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.13.0</version>
+          <configuration>
+            <release>${maven.compiler.release}</release>
+            <parameters>true</parameters>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.5.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>${spring-boot.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.4.1</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>
