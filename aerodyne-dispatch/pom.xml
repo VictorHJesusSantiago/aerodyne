@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.aerodyne</groupId>
+    <artifactId>aerodyne</artifactId>
+    <version>0.1.0</version>
+  </parent>
+
+  <artifactId>aerodyne-dispatch</artifactId>
+  <packaging>jar</packaging>
+
+  <name>Aerodyne :: Dispatch</name>
+  <description>
+    Dispatch: ETOPS entry and exit points, equal-time points, alternate selection against
+    METAR and TAF minima and NOTAM closures, NOTAM parsing, the operational flight plan
+    document, and a CPDLC-style uplink and downlink message codec.
+  </description>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.aerodyne</groupId>
+      <artifactId>aerodyne-geo</artifactId>
+    </dependency>    <dependency>
+      <groupId>io.aerodyne</groupId>
+      <artifactId>aerodyne-navdata</artifactId>
+    </dependency>    <dependency>
+      <groupId>io.aerodyne</groupId>
+      <artifactId>aerodyne-weather</artifactId>
+    </dependency>    <dependency>
+      <groupId>io.aerodyne</groupId>
+      <artifactId>aerodyne-performance</artifactId>
+    </dependency>    <dependency>
+      <groupId>io.aerodyne</groupId>
+      <artifactId>aerodyne-routing</artifactId>
+    </dependency>    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+  </dependencies>
+</project>
