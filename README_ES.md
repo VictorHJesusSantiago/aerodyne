@@ -1108,7 +1108,7 @@ cd aerodyne-navdata/src/test/resources/arinc && python generate_fixture.py
 
 </details>
 
-## 📊 Métricas & Monitoreo
+## 📊 Métricas & Monitorización
 
 <details>
 <summary>▶️ <strong>Haga clic para expandir / contraer esta sección</strong></summary>
